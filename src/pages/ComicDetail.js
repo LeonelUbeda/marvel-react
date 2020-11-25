@@ -3,9 +3,9 @@ import {useParams} from 'react-router-dom'
 import useMarvelFetch from '../hooks/useMarvelFetch'
 import {buildComicDetailURL} from '../utils/urlBuilders'
 import SectionHeader from "../layout/SectionHeader"
-import NotFoundMessage from "../components/NotFoundMessage"
 import LoadingAnimation from "../components/LoadingAnimation";
 import DisplayPrices from "../components/DisplayPrices";
+import ErrorMessage from "../components/ErrorMessage";
 
 export default () => {
     const { id } = useParams()
@@ -25,11 +25,12 @@ export default () => {
     return (
         <>
             <SectionHeader>
-                <h3 className="text-3xl font-bold py-2 text-gray-100">Comic Detail</h3>
+                <h3 className="text-2xl font-bold py-2 text-gray-100">Comic Detail</h3>
             </SectionHeader>
             <div className="container mx-auto pb-20 ">
-                {statusCode === 404 ? <NotFoundMessage /> : null}
-                {error ? <h1 >Error</h1> : null}
+                {!isLoading && statusCode !== 200?
+                    <ErrorMessage title={statusCode === 404 ? 'Not Found' : 'Application Error'} actionLink={"/"} actionTitle="Go home"/>
+                : null}
                 {isLoading ? <LoadingAnimation /> : null}
                 {element && !isLoading ?
                     <div className="flex flex-col items-center mt-4 md:flex-row md:items-start md:justify-center md:max-w-3xl md:mx-auto">
