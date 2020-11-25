@@ -8,17 +8,18 @@ import DisplayPrices from "../components/DisplayPrices"
 import ErrorMessage from "../components/ErrorMessage"
 import ComicDate from "../components/comics/ComicDate"
 import {nanoid} from "nanoid";
+import GenericRelatedItems from "../components/GenericRelatedItems";
 
 export default () => {
     const { id } = useParams()
     const [element, setElement] = useState(null)
     const {elements, error, isLoading, statusCode} = useMarvelFetch(buildComicDetailURL(id))
-
+    const [relatedCharacters, setRelatedCharacters] = useState(null)
     useEffect(() => {
             if (statusCode === 200){
                 if (!isLoading && elements){
-                    console.log(elements[0].thumbnail.path)
                     setElement(elements[0])
+                    setRelatedCharacters(elements[0].characters.items.map(e => ({title: e.name, link: `/characters/${e.resourceURI.split("/characters/")[1]}`})))
                 }
             }
 
@@ -91,7 +92,11 @@ export default () => {
                             :
                                 <h2 className="font-semibold text-xl text-red-500">No description!</h2>
                             }
-
+                            <div className="mt-4">
+                                <GenericRelatedItems
+                                    items={relatedCharacters}
+                                    title="See related characters"/>
+                            </div>
                         </div>
 
                     </div>

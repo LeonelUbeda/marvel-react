@@ -29,6 +29,9 @@ export default ({title, items}) => {
                         </div>
 
                     ))}
+                    {items.length === 0 ?
+                        <h6 className="text-red-600">No related items found</h6>
+                    : null }
                 </div>
             </AnimateHeight>
         </div>
