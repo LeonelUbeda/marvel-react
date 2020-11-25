@@ -10,13 +10,13 @@ const useMarvelFetch = (url, options={}) => {
     const [statusCode, setStatusCode] = useState(null)
     const [pagesQuantity, setPagesQuantity] = useState(null)
     const [actualPage, setActualPage] = useState(null)
+
     useEffect(() => {
-        if (!isLoading && response.code !== 200){
+        if (!isLoading && !error && response.code){
             setStatusCode(response.code)
-            return
         }
 
-        if (response && !error && !isLoading){
+        if (response && !error && !isLoading && response.code === 200){
             const {limit, total, offset} = response.data
             setStatusCode(response.code)
             setElements(response.data.results)
@@ -33,7 +33,8 @@ const useMarvelFetch = (url, options={}) => {
         isLoading,
         statusCode,
         pagesQuantity,
-        actualPage
+        actualPage,
+        response
     }
 };
 
