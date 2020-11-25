@@ -6,3 +6,5 @@ export const BASE_URL = 'http://gateway.marvel.com/v1/public'
 export const COMICS_PATH = '/comics'
 export const COMIC_DETAIL_PATH = '/comics/:comicId'
 
+export const CHARACTERS_PATH = '/characters'
+export const CHARACTER_DETAIL_PATH = '/characters/:characterId'
