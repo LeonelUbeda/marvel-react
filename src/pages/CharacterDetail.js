@@ -15,7 +15,6 @@ export default () => {
     const [element, setElement] = useState(null)
     const {elements, error, isLoading, statusCode} = useMarvelFetch(buildCharacterDetail(id))
     const [relatedComics, setRelatedComics] = useState(null)
-    const [relatedStories, setRelatedStories] = useState(null)
     const {state: favoriteItems, dispatch} = useContext(store)
     const [isFavorite, setIsFavorite ] = useState(searchIfFavorite(favoriteItems, id, 'CHARACTER'))
 
@@ -51,11 +50,6 @@ export default () => {
                 let temp = elements[0]
                 const { comics, stories } = temp
                 setElement(temp)
-                setRelatedStories(stories.items.map(e => ({
-                    title: e.name,
-                    link: `/series/${e.resourceURI.split("/series/")[1]}`
-                })))
-
                 setRelatedComics(comics.items.map(e => ({
                     title: e.name,
                     link: `/comics/${e.resourceURI.split("/comics/")[1]}`
@@ -109,12 +103,6 @@ export default () => {
                                     <DisplayPrices prices={element.prices}/>
                                 </div>
                             : null}
-
-                            <div className="my-2">
-                                <GenericRelatedItems
-                                    items={relatedStories}
-                                    title="See related stories"/>
-                            </div>
 
                             <div className="my-2">
                                 <GenericRelatedItems
