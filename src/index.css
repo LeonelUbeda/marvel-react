@@ -29,3 +29,41 @@ code {
 .text-shadow-none {
   text-shadow: none;
 }
+
+.loading-element {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.loading-element:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fe718d;
+  border-color: #fe718d transparent #fe718d transparent;
+  animation: loading-element 1.2s linear infinite;
+}
+@keyframes loading-element {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* NAV BAR */
+.selected-menu-item svg, .selected-menu-item span{
+  color: rgba(239, 68, 68, 1)
+}
+
+
+
+
+
+
+
