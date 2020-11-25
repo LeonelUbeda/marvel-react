@@ -22,8 +22,8 @@
   },
   "scripts": {
     "start:tailwind": "tailwindcss build -o src/tailwind.css",
-    "build:tailwind": "cross-env NODE_ENV=production tailwindcss build -o ./src/tailwind.css",
-    "start": "yarn start:tailwind && react-scripts start",
+    "build:tailwind": "tailwindcss build -o ./src/tailwind.css",
+    "start": "cross-env NODE_ENV=production CI=false yarn start:tailwind && react-scripts start",
     "build": "yarn build:tailwind && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
