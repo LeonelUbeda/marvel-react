@@ -5,17 +5,6 @@ import {Link, NavLink} from 'react-router-dom'
 const Nav = () => {
     return (
         <div className="flex justify-center w-full text-gray-600 border-t pb-1 py-2 bg-white">
-            <NavLink to="/search" activeClassName="selected-menu-item">
-                <div className="flex flex-col items-center mx-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-8" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none"
-                         strokeLinecap="round" strokeLinejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <circle cx="10" cy="10" r="7"/>
-                        <line x1="21" y1="21" x2="15" y2="15"/>
-                    </svg>
-                    <span className="text-sm font-semibold text-gray-800">Search</span>
-                </div>
-            </NavLink>
             <NavLink to="/" exact activeClassName="selected-menu-item">
                 <div className="flex flex-col items-center mx-2">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-8" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none"
