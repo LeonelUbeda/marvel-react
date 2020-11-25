@@ -68,7 +68,6 @@ export default () => {
         <>
             <SectionHeader>
                 <h3 className="text-2xl font-bold py-2 text-gray-100">Comic Detail</h3>
-                {favoriteItems.map(e => <h1>{e.title}</h1>)}
             </SectionHeader>
             <div className="container mx-auto pb-20 ">
 
