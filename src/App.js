@@ -16,7 +16,6 @@ import CharacterDetail from "./pages/CharacterDetail"
 import Favorites from "./pages/Favorites"
 
 
-
 function Main() {
     const {dispatch} = useContext(store)
 
@@ -26,7 +25,6 @@ function Main() {
             localforage.iterate((value) => {
                 temp.push(value)
             }).then(() => {
-                console.log(temp)
                 dispatch({type: 'INITIALIZE', payload: temp})
             })
         }

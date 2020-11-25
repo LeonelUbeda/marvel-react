@@ -4,7 +4,6 @@ import AnimateHeight from "react-animate-height"
 import SimpleArrow from "./SimpleArrow"
 
 
-
 export default ({title, items}) => {
     const [show, setShow] = useState(false)
 

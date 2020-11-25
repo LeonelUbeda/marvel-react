@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactPaginate from "react-paginate";
 
-
 export default ({pagesQuantity, selectedPage, handlePageClick}) => {
     return <ReactPaginate pageCount={pagesQuantity}
                           pageRangeDisplayed={2}

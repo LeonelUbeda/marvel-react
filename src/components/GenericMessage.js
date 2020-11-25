@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export default ({
     title,
     titleClassName = 'text-center bg-red-500 font-bold text-white py-4 rounded-md',

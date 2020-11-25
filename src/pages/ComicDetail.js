@@ -2,17 +2,15 @@ import React, {useEffect, useState, useContext} from 'react'
 import {useParams} from 'react-router-dom'
 import useMarvelFetch from '../hooks/useMarvelFetch'
 import {buildComicDetailURL} from '../utils/urlBuilders'
-import SectionHeader from "../layout/SectionHeader"
-import LoadingAnimation from "../components/LoadingAnimation"
-import DisplayPrices from "../components/DisplayPrices"
-import ErrorMessage from "../components/ErrorMessage"
-import ComicDate from "../components/comics/ComicDate"
-import {nanoid} from "nanoid"
-import GenericRelatedItems from "../components/GenericRelatedItems"
+import SectionHeader from '../layout/SectionHeader'
+import LoadingAnimation from '../components/LoadingAnimation'
+import DisplayPrices from '../components/DisplayPrices'
+import ErrorMessage from '../components/ErrorMessage'
+import ComicDate from '../components/comics/ComicDate'
+import {nanoid} from 'nanoid'
+import GenericRelatedItems from '../components/GenericRelatedItems'
 import {store} from '../store'
-import {searchIfFavorite} from "../utils/favoriteStateUtils"
-
-
+import {searchIfFavorite} from '../utils/favoriteStateUtils'
 
 
 export default () => {
@@ -57,7 +55,7 @@ export default () => {
 
                 setRelatedCharacters(elements[0].characters.items.map(e => ({
                     title: e.name,
-                    link: `/characters/${e.resourceURI.split("/characters/")[1]}`
+                    link: `/characters/${e.resourceURI.split('/characters/')[1]}`
                 })))
             }
         }

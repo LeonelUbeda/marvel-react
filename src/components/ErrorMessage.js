@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link, useHistory} from 'react-router-dom'
+
+
 export default ({title, actionTitle = "Go back", actionLink = null, className = 'mt-5 px-10'}) => {
     let history = useHistory()
     return (

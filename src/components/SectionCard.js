@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 
-export default ({src, link, title, className=""}) => {
+export default ({src, link, title}) => {
     return (
         <>
             <Link to={link}>
