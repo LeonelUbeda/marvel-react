@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AnimateHeight from 'react-animate-height';
@@ -5,7 +7,8 @@ import SimpleArrow from './SimpleArrow';
 
 export default ({ title, items }) => {
   const [show, setShow] = useState(false);
-
+  // eslint-disable-next-line spaced-comment
+  //TODO Fix eslits related to h6 and disable spaced-comment in eslit config
   return (
     <div>
       <h6
