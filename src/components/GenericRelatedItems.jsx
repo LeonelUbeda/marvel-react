@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AnimateHeight from 'react-animate-height';
@@ -7,18 +5,15 @@ import SimpleArrow from './SimpleArrow';
 
 export default ({ title, items }) => {
   const [show, setShow] = useState(false);
-  // eslint-disable-next-line spaced-comment
-  //TODO Fix eslits related to h6 and disable spaced-comment in eslit config
   return (
     <div>
-      <h6
-        className="cursor-pointer text-blue-500 font-semibold"
-        onClick={() => setShow(!show)}
-      >
-        {title}
-        <span className="mx-2">
-          <SimpleArrow isUp={!show} sizeClassName="w-5" />
-        </span>
+      <h6 className="cursor-pointer text-blue-500 font-semibold">
+        <button onClick={() => setShow(!show)} type="button">
+          {title}
+          <span className="mx-2">
+            <SimpleArrow isUp={!show} sizeClassName="w-5" />
+          </span>
+        </button>
       </h6>
       <AnimateHeight height={show ? 'auto' : 0}>
         <div className="mt-3 divide-gray-300 divide-y">
