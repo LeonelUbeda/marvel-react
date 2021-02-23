@@ -1,15 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({
+const GenericMessage = ({
   title,
-  titleClassName = 'text-center bg-red-500 font-bold text-white py-4 rounded-md',
   subTitle,
-  subTitleClassName = 'text-center font-bold text-blue-500 py-2 text-xl',
-  containerClassName = 'mt-5 px-10',
 }) => (
-  <div className={containerClassName}>
-    <h1 className={titleClassName}>{title}</h1>
-    {/* TODO: Refactor this */}
-    {subTitle ? <h3 className={subTitleClassName}>{subTitle}</h3> : null}
+  <div className="mt-5 px-10'">
+    <h1 className="text-center bg-red-500 font-bold text-white py-4 rounded-md">
+      {title}
+    </h1>
+    {subTitle ? (
+      <h3 className="text-center font-bold text-blue-500 py-2 text-xl">
+        {subTitle}
+      </h3>
+    ) : null}
   </div>
 );
+
+GenericMessage.propTypes = {
+  title: PropTypes.string.isRequired,
+  subTitle: PropTypes.string.isRequired,
+};
+
+export default GenericMessage;

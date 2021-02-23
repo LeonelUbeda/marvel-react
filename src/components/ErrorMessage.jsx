@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const ErrorTitle = ({ children }) => (
-  <h3 className="text-center font-bold text-blue-500 py-2 text-xl">
+  <div className="text-center font-bold text-blue-500 py-2 text-xl">
     {children}
-  </h3>
+  </div>
 );
 
-export default ({
+const ErrorMessage = ({
   title,
-  actionTitle = 'Go back',
-  actionLink = null,
-  className = 'mt-5 px-10',
+  actionTitle,
+  actionLink,
+  className,
 }) => {
   const history = useHistory();
   return (
@@ -21,7 +22,9 @@ export default ({
       </h1>
       {actionLink ? (
         <Link to={actionLink}>
-          <ErrorTitle>{actionTitle}</ErrorTitle>
+          <ErrorTitle>
+            <h1>{actionTitle}</h1>
+          </ErrorTitle>
         </Link>
       ) : (
         <ErrorTitle>
@@ -33,3 +36,18 @@ export default ({
     </div>
   );
 };
+
+ErrorMessage.propTypes = {
+  title: PropTypes.string.isRequired,
+  actionTitle: PropTypes.string,
+  actionLink: PropTypes.string,
+  className: PropTypes.string
+};
+
+ErrorMessage.defaultProps = {
+  actionTitle: 'Go Back',
+  actionLink: null,
+  className: 'mt-5 px-10',
+};
+
+export default ErrorMessage;
