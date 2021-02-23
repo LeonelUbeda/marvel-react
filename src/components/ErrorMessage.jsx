@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+const ErrorTitle = ({ children }) => (
+  <h3 className="text-center font-bold text-blue-500 py-2 text-xl">
+    {children}
+  </h3>
+);
+
 export default ({
   title,
   actionTitle = 'Go back',
@@ -13,20 +19,16 @@ export default ({
       <h1 className="text-center bg-red-500 font-bold text-white py-4 rounded-md">
         {title}
       </h1>
-
-      {/* TODO: Refactor this */}
       {actionLink ? (
         <Link to={actionLink}>
-          <h3 className="text-center font-bold text-blue-500 py-2 text-xl">
-            {actionTitle}
-          </h3>
+          <ErrorTitle>{actionTitle}</ErrorTitle>
         </Link>
       ) : (
-        <h3 className="text-center font-bold text-blue-500 py-2 text-xl">
+        <ErrorTitle>
           <button onClick={() => history.goBack()} type="button">
             {actionTitle}
           </button>
-        </h3>
+        </ErrorTitle>
       )}
     </div>
   );

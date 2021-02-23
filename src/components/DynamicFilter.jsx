@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import { nanoid } from 'nanoid';
 import AnimateHeight from 'react-animate-height';
 
-const SelectFilter = (filter, selectHandleChange) => (
+const SelectFilter = ({ filter, selectHandleChange }) => (
   <div>
     <h2 className="text-lg">{filter.label}</h2>
     <Select
@@ -23,29 +24,27 @@ const SelectFilter = (filter, selectHandleChange) => (
   </div>
 );
 
-const Filters = (filters, selectHandleChange) => (
+const Filters = ({ filters, selectHandleChange }) => (
   <>
     {filters
-      .filter((filter) => ['select'].includes(filter.type))
       .map((filter) => {
-        switch (filter.type) {
-          case 'select':
-            return (
-              <SelectFilter
-                filter={filter}
-                selectHandleChange={selectHandleChange}
-              />
-            );
-          default:
-            return null;
+        // in the future, there may be multiple filter types
+        if (filter.type === 'select') {
+          return (
+            <SelectFilter
+              filter={filter}
+              selectHandleChange={selectHandleChange}
+              key={nanoid()}
+            />
+          );
         }
+        return null;
       })}
   </>
 );
 
 export default ({ filters, filterChangeHandler, hidden }) => {
   const [selectedFilters, setSelectedFilters] = useState({});
-  // const [isHidden, setIsHidden] = useState(true);
   useEffect(() => {
     filterChangeHandler(selectedFilters);
   }, [selectedFilters]);

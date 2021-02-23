@@ -8,12 +8,10 @@ const TYPES = {
 export default ({ type, date }) => (
   <>
     {TYPES[type] ? (
-      <>
-        <h5>
-          {TYPES[type]}
-          <span>{new Date(date).toLocaleDateString()}</span>
-        </h5>
-      </>
+      <h5>
+        {TYPES[type]}
+        <span>{new Date(date).toLocaleDateString()}</span>
+      </h5>
     ) : null}
   </>
 );

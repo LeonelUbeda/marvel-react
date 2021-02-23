@@ -8,7 +8,7 @@ export default ({ title, items }) => {
   return (
     <div>
       <h6 className="cursor-pointer text-blue-500 font-semibold">
-        <button onClick={() => setShow(!show)} type="button">
+        <button onClick={() => setShow((prev) => !prev)} type="button">
           {title}
           <span className="mx-2">
             <SimpleArrow isUp={!show} sizeClassName="w-5" />
