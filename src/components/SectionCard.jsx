@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default ({ section }) => (
+const SectionCard = ({ section }) => (
   <Link to={section.link}>
     <div className="relative h-32 md:h-full w-full">
       <div className="w-full h-full bg-black opacity-25 absolute  rounded-xl" />
@@ -16,3 +17,13 @@ export default ({ section }) => (
     </div>
   </Link>
 );
+
+SectionCard.propTypes = {
+  section: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired
+  }).isRequired
+};
+
+export default SectionCard;

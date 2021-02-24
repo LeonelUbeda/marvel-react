@@ -142,7 +142,7 @@ export default () => {
                       {element.dates.map((e) => (
                         <ComicDate
                           type={e.type}
-                          date={e.date}
+                          date={new Date(e.date)}
                           key={nanoid(5)}
                         />
                       ))}

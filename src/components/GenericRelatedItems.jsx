@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AnimateHeight from 'react-animate-height';
+import { nanoid } from 'nanoid';
 import SimpleArrow from './SimpleArrow';
 
-export default ({ title, items }) => {
+const GenericRelatedItems = ({ title, items }) => {
   const [show, setShow] = useState(false);
   return (
     <div>
@@ -18,7 +20,7 @@ export default ({ title, items }) => {
       <AnimateHeight height={show ? 'auto' : 0}>
         <div className="mt-3 divide-gray-300 divide-y">
           {items.map((item) => (
-            <div className="flex justify-between py-2">
+            <div className="flex justify-between py-2" key={nanoid()}>
               <h6 className="font-medium text-gray-600">{item.title}</h6>
               <Link to={item.link}>
                 <span className="text-red-600 mx-2 whitespace-no-wrap">
@@ -35,3 +37,15 @@ export default ({ title, items }) => {
     </div>
   );
 };
+
+GenericRelatedItems.propTypes = {
+  title: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+    })
+  ).isRequired
+};
+
+export default GenericRelatedItems;
