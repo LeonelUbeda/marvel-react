@@ -21,7 +21,7 @@ const FILTERS = [
   {
     label: 'Order by',
     type: 'select',
-    value: 'orderBy',
+    propName: 'orderBy',
     options: [
       { value: null, label: 'Default' },
       { value: 'name', label: 'Name (ascendent)' },

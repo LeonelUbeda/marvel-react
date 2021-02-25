@@ -3,44 +3,20 @@ import Select from 'react-select';
 import { nanoid } from 'nanoid';
 import AnimateHeight from 'react-animate-height';
 
-const SelectFilter = ({ filter, selectHandleChange }) => (
+const SelectFilter = ({ label, options, onChange, defaultValue }) => (
   <div>
-    <h2 className="text-lg">{filter.label}</h2>
+    <h2 className="text-lg">{label}</h2>
     <Select
-      options={filter.options.map((option) => ({
-        value: option.value,
-        label: option.label,
-      }))}
+      options={options}
       defaultValue={
-        filter.default || {
-          value: filter.options[0].value,
-          label: filter.options[0].label,
+        defaultValue || {
+          value: options[0].value,
+          label: options[0].label
         }
       }
-      onChange={(selectedValue) => {
-        selectHandleChange(filter.value, selectedValue);
-      }}
+      onChange={({ value }) => onChange(value)}
     />
   </div>
-);
-
-const Filters = ({ filters, selectHandleChange }) => (
-  <>
-    {filters
-      .map((filter) => {
-        // in the future, there may be multiple filter types
-        if (filter.type === 'select') {
-          return (
-            <SelectFilter
-              filter={filter}
-              selectHandleChange={selectHandleChange}
-              key={nanoid()}
-            />
-          );
-        }
-        return null;
-      })}
-  </>
 );
 
 export default ({ filters, filterChangeHandler, hidden }) => {
@@ -49,18 +25,37 @@ export default ({ filters, filterChangeHandler, hidden }) => {
     filterChangeHandler(selectedFilters);
   }, [selectedFilters]);
 
-  function selectHandleChange(propName, selected) {
-    setSelectedFilters({
-      ...selectedFilters,
-      [propName]: selected.value,
-    });
+  function selectHandleChange(propName, value) {
+    setSelectedFilters((state) => ({
+      ...state,
+      [propName]: value
+    }));
   }
 
   return (
     <div>
       <AnimateHeight height={hidden ? 0 : 'auto'}>
-        <div className="my-3 grid grid-cols-1 sm:grid-cols-2 sm: gap-x-4">
-          <Filters filters={filters} selectHandleChange={selectHandleChange} />
+        <div className="my-3 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4">
+          {filters
+            .map((filter) => {
+              // in the future, there may be multiple filter types
+              switch (filter.type) {
+                case 'select': {
+                  return (
+                    <SelectFilter
+                      label={filter.label}
+                      options={filter.options}
+                      defaultValue={filter.default}
+                      onChange={(value) => selectHandleChange(filter.propName, value)}
+                      key={nanoid()}
+                    />
+                  );
+                }
+                default: {
+                  return null;
+                }
+              }
+            })}
         </div>
       </AnimateHeight>
     </div>

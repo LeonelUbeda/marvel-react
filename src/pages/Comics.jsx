@@ -22,7 +22,7 @@ const FILTERS = [
   {
     label: 'Order by',
     type: 'select',
-    value: 'orderBy',
+    propName: 'orderBy',
     options: [
       { value: null, label: 'All' },
       { value: 'issueNumber', label: 'Issue Number (ascendent)' },
@@ -32,7 +32,7 @@ const FILTERS = [
   {
     label: 'Comic Format',
     type: 'select',
-    value: 'format',
+    propName: 'format',
     options: [
       { value: null, label: 'All' },
       { value: 'comic', label: 'Comic' },

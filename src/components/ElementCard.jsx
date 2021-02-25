@@ -21,7 +21,7 @@ const ElementCard = ({ link, title, image, extras }) => (
         {extras.length > 0 ? (
           <div className="extras my-2 flex items-end w-full text-white text-xs absolute top-0 left-0 flex flex-col transform translate-x-3">
             {extras.map((extra) => (
-              <ExtraCard title={extra.title} className={extra.className} />
+              <ExtraCard title={extra.title} className={extra.className} key={nanoid()} />
             ))}
           </div>
         ) : null}
