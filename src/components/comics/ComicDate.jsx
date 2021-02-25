@@ -1,17 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TYPES = {
   focDate: 'Final Order Cutoff :',
   onsaleDate: 'On sale :',
 };
 
-export default ({ type, date }) => (
+const ComicDate = ({ type, date }) => (
   <>
     {TYPES[type] ? (
       <h5>
         {TYPES[type]}
-        <span>{new Date(date).toLocaleDateString()}</span>
+        <span>{date.toLocaleDateString()}</span>
       </h5>
     ) : null}
   </>
 );
+
+ComicDate.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  type: PropTypes.string.isRequired
+};
+
+export default ComicDate;
