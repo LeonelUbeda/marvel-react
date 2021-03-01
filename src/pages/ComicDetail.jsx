@@ -1,55 +1,51 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import favoriteActions from '../store/favorite/favorite.actions';
+
 import useMarvelFetch from '../hooks/useMarvelFetch';
+
 import { buildComicDetailURL } from '../utils/urlBuilders';
+import { searchIfFavorite } from '../utils/favoriteStateUtils';
 import SectionHeader from '../layout/SectionHeader';
 import LoadingAnimation from '../components/LoadingAnimation';
 import DisplayPrices from '../components/DisplayPrices';
 import ErrorMessage from '../components/ErrorMessage';
 import ComicDate from '../components/comics/ComicDate';
-
 import GenericRelatedItems from '../components/GenericRelatedItems';
-import { store } from '../store';
-import { searchIfFavorite } from '../utils/favoriteStateUtils';
 
 export default () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [element, setElement] = useState(null);
   const { elements, isLoading, statusCode } = useMarvelFetch(
     buildComicDetailURL(id)
   );
   const [relatedCharacters, setRelatedCharacters] = useState(null);
-  const { state: favoriteItems, dispatch } = useContext(store);
+  const { favorites } = useSelector((state) => state.favorite);
   const [isFavorite, setIsFavorite] = useState(
-    searchIfFavorite(favoriteItems, id, 'COMIC')
+    searchIfFavorite(favorites, parseInt(id, 10), 'COMIC')
   );
 
   function addToFavorite() {
-    dispatch({
-      type: 'ADD',
-      payload: {
-        id: element.id,
-        title: element.title,
-        thumbnail: `${element.thumbnail.path}.${element.thumbnail.extension}`,
-        type: 'COMIC',
-        link: `/comics/${element.id}`,
-      },
-    });
+    dispatch(favoriteActions.addFavorite({
+      id: element.id,
+      title: element.title,
+      thumbnail: `${element.thumbnail.path}.${element.thumbnail.extension}`,
+      type: 'COMIC',
+      link: `/comics/${element.id}`
+    }));
     setIsFavorite(true);
   }
 
   function removeFromFavorite() {
-    dispatch({
-      type: 'REMOVE',
-      payload: {
-        id: element.id,
-        type: 'COMIC',
-      },
-    });
+    dispatch(favoriteActions.removeFavorite(
+      parseInt(id, 10),
+      'COMIC'
+    ));
     setIsFavorite(false);
   }
-
   useEffect(() => {
     if (statusCode === 200) {
       if (!isLoading && elements) {

@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import favoriteActions from '../store/favorite/favorite.actions';
 import useMarvelFetch from '../hooks/useMarvelFetch';
 import { buildCharacterDetail } from '../utils/urlBuilders';
 import SectionHeader from '../layout/SectionHeader';
@@ -7,42 +9,36 @@ import LoadingAnimation from '../components/LoadingAnimation';
 import DisplayPrices from '../components/DisplayPrices';
 import ErrorMessage from '../components/ErrorMessage';
 import GenericRelatedItems from '../components/GenericRelatedItems';
-import { store } from '../store';
 import { searchIfFavorite } from '../utils/favoriteStateUtils';
 
 export default () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [element, setElement] = useState(null);
   const characterUrl = buildCharacterDetail(id);
   const { elements, isLoading, statusCode } = useMarvelFetch(characterUrl);
   const [relatedComics, setRelatedComics] = useState(null);
-  const { state: favoriteItems, dispatch } = useContext(store);
+  const { favorites } = useSelector((state) => state.favorite);
   const [isFavorite, setIsFavorite] = useState(
-    searchIfFavorite(favoriteItems, id, 'CHARACTER')
+    searchIfFavorite(favorites, parseInt(id, 10), 'CHARACTER')
   );
 
   function addToFavorite() {
-    dispatch({
-      type: 'ADD',
-      payload: {
-        id: element.id,
-        title: element.name,
-        thumbnail: `${element.thumbnail.path}.${element.thumbnail.extension}`,
-        type: 'CHARACTER',
-        link: `/characters/${element.id}`,
-      },
-    });
+    dispatch(favoriteActions.addFavorite({
+      id: element.id,
+      title: element.title,
+      thumbnail: `${element.thumbnail.path}.${element.thumbnail.extension}`,
+      type: 'CHARACTER',
+      link: `/characters/${element.id}`
+    }));
     setIsFavorite(true);
   }
 
   function removeFromFavorite() {
-    dispatch({
-      type: 'REMOVE',
-      payload: {
-        id: element.id,
-        type: 'COMIC',
-      },
-    });
+    dispatch(favoriteActions.removeFavorite(
+      parseInt(id, 10),
+      'CHARACTER'
+    ));
     setIsFavorite(false);
   }
 

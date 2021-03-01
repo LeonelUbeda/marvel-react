@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import localforage from 'localforage';
+import { Provider, useDispatch } from 'react-redux';
+import { loadAllFavorites } from './store/favorite/favorite.actions';
 import './tailwind.css';
-import { StateProvider, store } from './store';
+import store from './store/index';
 import Home from './pages/Home';
 import Comics from './pages/Comics';
 import ComicDetail from './pages/ComicDetail';
@@ -12,22 +13,10 @@ import CharacterDetail from './pages/CharacterDetail';
 import Favorites from './pages/Favorites';
 
 function Main() {
-  const { dispatch } = useContext(store);
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    function getItemsFromLocal() {
-      const temp = [];
-      localforage
-        .iterate((value) => {
-          temp.push(value);
-        })
-        .then(() => {
-          dispatch({ type: 'INITIALIZE', payload: temp });
-        });
-    }
-    getItemsFromLocal();
+    dispatch(loadAllFavorites());
   }, []);
-
   return (
     <Router>
       <div className="app">
@@ -49,9 +38,9 @@ function Main() {
 
 function App() {
   return (
-    <StateProvider>
+    <Provider store={store}>
       <Main />
-    </StateProvider>
+    </Provider>
   );
 }
 
