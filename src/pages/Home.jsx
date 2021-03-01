@@ -1,4 +1,5 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 import SectionCard from '../components/SectionCard';
 import SectionHeader from '../layout/SectionHeader';
 
@@ -24,7 +25,7 @@ export default () => (
     </SectionHeader>
     <div className="grid gap-y-4 grid-cols-1 px-2 py-4 md:grid-cols-2 md:gap-x-4 container mx-auto h-full">
       {sections.map((section) => (
-        <SectionCard section={section} />
+        <SectionCard section={section} key={nanoid()} />
       ))}
     </div>
   </>
