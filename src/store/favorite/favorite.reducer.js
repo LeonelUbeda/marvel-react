@@ -14,6 +14,8 @@ function reducer(state = initialState, { type, payload }) {
             (item) => item.id !== payload.id && item.type !== payload.type
           )]
       };
+    case types.LOAD_ALL:
+      return { ...state, favorites: payload };
     default:
       return state;
   }
