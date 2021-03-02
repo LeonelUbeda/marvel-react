@@ -4,7 +4,7 @@ import useMarvelFetch from '../hooks/useMarvelFetch';
 import { buildCharacterDetail } from '../utils/urlBuilders';
 import SectionHeader from '../layout/SectionHeader';
 import LoadingAnimation from '../components/LoadingAnimation';
-import DisplayPrices from '../components/DisplayPrices';
+import Price from '../components/Price';
 import ErrorMessage from '../components/ErrorMessage';
 import GenericRelatedItems from '../components/GenericRelatedItems';
 import { store } from '../store';
@@ -122,7 +122,9 @@ export default () => {
               {element.prices && element.prices.length > 0 ? (
                 <div className="my-2">
                   <h2 className="text-gray-600 font-semibold">Price</h2>
-                  <DisplayPrices prices={element.prices} />
+                  <div className="w-full flex flex-wrap">
+                    {element.prices.map(({ type, price }) => <Price type price />)}
+                  </div>
                 </div>
               ) : null}
 
