@@ -8,6 +8,7 @@ import useMarvelFetch from '../hooks/useMarvelFetch';
 
 import { buildComicDetailURL } from '../utils/urlBuilders';
 import { searchIfFavorite } from '../utils/favoriteStateUtils';
+import ErrorInline from '../components/ErrorInline';
 import SectionHeader from '../layout/SectionHeader';
 import LoadingAnimation from '../components/LoadingAnimation';
 import DisplayPrices from '../components/DisplayPrices';
@@ -23,28 +24,31 @@ export default () => {
     buildComicDetailURL(id)
   );
   const [relatedCharacters, setRelatedCharacters] = useState(null);
-  const { favorites } = useSelector((state) => state.favorite);
-  const [isFavorite, setIsFavorite] = useState(
-    searchIfFavorite(favorites, parseInt(id, 10), 'COMIC')
+
+  const { favorites, error: actionFavoriteError } = useSelector(
+    (state) => state.favorite
   );
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(searchIfFavorite(favorites, parseInt(id, 10), 'COMIC'));
+  }, [favorites]);
+
   function addToFavorite() {
-    dispatch(favoriteActions.addFavorite({
-      id: element.id,
-      title: element.title,
-      thumbnail: `${element.thumbnail.path}.${element.thumbnail.extension}`,
-      type: 'COMIC',
-      link: `/comics/${element.id}`
-    }));
-    setIsFavorite(true);
+    dispatch(
+      favoriteActions.addFavorite({
+        id: element.id,
+        title: element.title,
+        thumbnail: `${element.thumbnail.path}.${element.thumbnail.extension}`,
+        type: 'COMIC',
+        link: `/comics/${element.id}`,
+      })
+    );
   }
 
   function removeFromFavorite() {
-    dispatch(favoriteActions.removeFavorite(
-      parseInt(id, 10),
-      'COMIC'
-    ));
-    setIsFavorite(false);
+    dispatch(favoriteActions.removeFavorite(parseInt(id, 10), 'COMIC'));
   }
   useEffect(() => {
     if (statusCode === 200) {
@@ -66,7 +70,14 @@ export default () => {
       <SectionHeader>
         <h3 className="text-2xl font-bold py-2 text-gray-100">Comic Detail</h3>
       </SectionHeader>
-      <div className="container mx-auto pb-20 ">
+      <div className="container mx-auto pb-20 px-2">
+        {actionFavoriteError && (
+          <ErrorInline
+            title="An error has occurred, please try again "
+            className="mt-5"
+            action={() => dispatch(favoriteActions.removeError())}
+          />
+        )}
         {!isLoading && statusCode !== 200 ? (
           <ErrorMessage
             title={statusCode === 404 ? 'Not Found' : 'Application Error'}

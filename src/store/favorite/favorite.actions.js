@@ -3,41 +3,57 @@ import favoriteTypes from './favorite.types';
 
 function addFavorite(element) {
   return async (dispatch) => {
-    await localforage.setItem(
-      `${element.type}-${element.id}`,
-      element
-    );
-    dispatch({
-      type: favoriteTypes.ADD_FAVORITE,
-      payload: element
-    });
+    try {
+      dispatch({ type: favoriteTypes.ADD_ERROR });
+      await localforage.setItem(`${element.type}-${element.id}`, element);
+      dispatch({
+        type: favoriteTypes.ADD_FAVORITE,
+        payload: element,
+      });
+    } catch (error) {
+      dispatch({ type: favoriteTypes.ADD_ERROR });
+    }
   };
 }
 
 function removeFavorite(id, type) {
   return async (dispatch) => {
-    await localforage.removeItem(`${type}-${id}`);
-    dispatch({
-      type: favoriteTypes.REMOVE_FAVORITE,
-      payload: { id, type }
-    });
+    try {
+      await localforage.removeItem(`${type}-${id}`);
+      dispatch({
+        type: favoriteTypes.REMOVE_FAVORITE,
+        payload: { id, type },
+      });
+    } catch (error) {
+      dispatch({ type: favoriteTypes.ADD_ERROR });
+    }
   };
 }
 
 export function loadAllFavorites() {
   return async (dispatch) => {
-    const keys = await localforage.keys();
-    let items = keys.map((e) => localforage.getItem(e));
-    items = await Promise.all(items);
-    dispatch({
-      type: favoriteTypes.LOAD_ALL,
-      payload: items
-    });
+    try {
+      dispatch({ type: favoriteTypes.LOADING_FAVORITES });
+      const keys = await localforage.keys();
+      let items = keys.map((e) => localforage.getItem(e));
+      items = await Promise.all(items);
+      dispatch({
+        type: favoriteTypes.LOADING_SUCCESS,
+        payload: items,
+      });
+    } catch (error) {
+      dispatch({ type: favoriteTypes.ADD_ERROR });
+    }
   };
+}
+
+function removeError() {
+  return { type: favoriteTypes.REMOVE_ERROR };
 }
 
 export default {
   addFavorite,
   removeFavorite,
-  loadAllFavorites
+  loadAllFavorites,
+  removeError,
 };
