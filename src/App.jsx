@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider, useDispatch } from 'react-redux';
 import { loadAllFavorites } from './store/favorite/favorite.actions';
