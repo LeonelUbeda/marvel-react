@@ -1,55 +1,55 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import favoriteActions from '../store/favorite/favorite.actions';
+
 import useMarvelFetch from '../hooks/useMarvelFetch';
+
 import { buildComicDetailURL } from '../utils/urlBuilders';
+import { searchIfFavorite } from '../utils/favoriteStateUtils';
+import ErrorInline from '../components/ErrorInline';
 import SectionHeader from '../layout/SectionHeader';
 import LoadingAnimation from '../components/LoadingAnimation';
 import Price from '../components/Price';
 import ErrorMessage from '../components/ErrorMessage';
 import ComicDate from '../components/comics/ComicDate';
-
 import GenericRelatedItems from '../components/GenericRelatedItems';
-import { store } from '../store';
-import { searchIfFavorite } from '../utils/favoriteStateUtils';
 
 export default () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [element, setElement] = useState(null);
   const { elements, isLoading, statusCode } = useMarvelFetch(
     buildComicDetailURL(id)
   );
   const [relatedCharacters, setRelatedCharacters] = useState(null);
-  const { state: favoriteItems, dispatch } = useContext(store);
-  const [isFavorite, setIsFavorite] = useState(
-    searchIfFavorite(favoriteItems, id, 'COMIC')
+
+  const { favorites, error: actionFavoriteError } = useSelector(
+    (state) => state.favorite
   );
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(searchIfFavorite(favorites, parseInt(id, 10), 'COMIC'));
+  }, [favorites]);
+
   function addToFavorite() {
-    dispatch({
-      type: 'ADD',
-      payload: {
+    dispatch(
+      favoriteActions.addFavorite({
         id: element.id,
         title: element.title,
         thumbnail: `${element.thumbnail.path}.${element.thumbnail.extension}`,
         type: 'COMIC',
         link: `/comics/${element.id}`,
-      },
-    });
-    setIsFavorite(true);
+      })
+    );
   }
 
   function removeFromFavorite() {
-    dispatch({
-      type: 'REMOVE',
-      payload: {
-        id: element.id,
-        type: 'COMIC',
-      },
-    });
-    setIsFavorite(false);
+    dispatch(favoriteActions.removeFavorite(parseInt(id, 10), 'COMIC'));
   }
-
   useEffect(() => {
     if (statusCode === 200) {
       if (!isLoading && elements) {
@@ -70,7 +70,14 @@ export default () => {
       <SectionHeader>
         <h3 className="text-2xl font-bold py-2 text-gray-100">Comic Detail</h3>
       </SectionHeader>
-      <div className="container mx-auto pb-20 ">
+      <div className="container mx-auto pb-20 px-2">
+        {actionFavoriteError && (
+          <ErrorInline
+            title={actionFavoriteError.message}
+            className="mt-5"
+            action={() => dispatch(favoriteActions.removeError())}
+          />
+        )}
         {!isLoading && statusCode !== 200 ? (
           <ErrorMessage
             title={statusCode === 404 ? 'Not Found' : 'Application Error'}

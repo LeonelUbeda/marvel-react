@@ -1,4 +1,5 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 import SectionCard from '../components/SectionCard';
 import SectionHeader from '../layout/SectionHeader';
 
