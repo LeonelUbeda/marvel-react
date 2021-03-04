@@ -23,8 +23,8 @@ export default () => (
       <h3 className="text-3xl font-bold py-2 text-gray-100">Home</h3>
     </SectionHeader>
     <div className="grid gap-y-4 grid-cols-1 px-2 py-4 md:grid-cols-2 md:gap-x-4 container mx-auto h-full">
-      {sections.map((section) => (
-        <SectionCard section={section} />
+      {sections.map(({ src, link, title }) => (
+        <SectionCard image={src} link={link} title={title} />
       ))}
     </div>
   </>
