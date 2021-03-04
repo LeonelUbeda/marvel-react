@@ -68,7 +68,7 @@ export default () => {
       <div className="container mx-auto pb-20">
         {actionFavoriteError && (
           <ErrorInline
-            title="An error has occurred, please try again "
+            title={actionFavoriteError.message}
             className="mt-5"
             action={() => dispatch(favoriteActions.removeError())}
           />

@@ -4,14 +4,24 @@ import favoriteTypes from './favorite.types';
 function addFavorite(element) {
   return async (dispatch) => {
     try {
-      dispatch({ type: favoriteTypes.ADD_ERROR });
+      dispatch({
+        type: favoriteTypes.ADD_ERROR,
+        payload: {
+          message: 'An error occurred while adding the item to favorites',
+        },
+      });
       await localforage.setItem(`${element.type}-${element.id}`, element);
       dispatch({
         type: favoriteTypes.ADD_FAVORITE,
         payload: element,
       });
     } catch (error) {
-      dispatch({ type: favoriteTypes.ADD_ERROR });
+      dispatch({
+        type: favoriteTypes.ADD_ERROR,
+        payload: {
+          message: 'An error occurred while adding the item to favorites',
+        },
+      });
     }
   };
 }
@@ -25,7 +35,12 @@ function removeFavorite(id, type) {
         payload: { id, type },
       });
     } catch (error) {
-      dispatch({ type: favoriteTypes.ADD_ERROR });
+      dispatch({
+        type: favoriteTypes.ADD_ERROR,
+        payload: {
+          message: 'An error occurred while removing the item to favorites',
+        },
+      });
     }
   };
 }
@@ -42,7 +57,10 @@ export function loadAllFavorites() {
         payload: items,
       });
     } catch (error) {
-      dispatch({ type: favoriteTypes.ADD_ERROR });
+      dispatch({
+        type: favoriteTypes.ADD_ERROR,
+        message: 'Error loading favorites',
+      });
     }
   };
 }

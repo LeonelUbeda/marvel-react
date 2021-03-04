@@ -1,6 +1,6 @@
 import types from './favorite.types';
 
-const initialState = { favorites: [], isLoading: false, error: false };
+const initialState = { favorites: [], isLoading: false, error: null };
 
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -20,11 +20,15 @@ function reducer(state = initialState, { type, payload }) {
     case types.LOADING_SUCCESS:
       return { ...state, favorites: payload, isLoading: false };
     case types.LOADING_FAVORITES_ERROR:
-      return { ...state, isLoading: false, error: true };
+      return {
+        ...state,
+        isLoading: false,
+        error: { message: payload.message },
+      };
     case types.ADD_ERROR:
-      return { ...state, error: true };
+      return { ...state, error: { message: payload.message } };
     case types.REMOVE_ERROR:
-      return { ...state, error: false };
+      return { ...state, error: null };
     default:
       return state;
   }
