@@ -11,6 +11,7 @@ const SectionCard = ({ link, image, title }) => (
       </h3>
       <img
         src={image}
+        data-testid="image"
         className="h-full w-full object-cover border-lg rounded-xl transition duration-500 hover:scale-150"
         alt={`${title} section`}
       />
