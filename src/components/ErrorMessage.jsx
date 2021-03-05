@@ -8,15 +8,11 @@ const ErrorTitle = ({ children }) => (
   </div>
 );
 
-const ErrorMessage = ({
-  title,
-  actionTitle,
-  actionLink,
-  className,
-}) => {
+const ErrorMessage = ({ title, actionTitle, actionLink, className }) => {
   const history = useHistory();
+  const goBack = () => history.goBack();
   return (
-    <div className={className}>
+    <div className={className} data-testid="container">
       <h1 className="text-center bg-red-500 font-bold text-white py-4 rounded-md">
         {title}
       </h1>
@@ -28,7 +24,7 @@ const ErrorMessage = ({
         </Link>
       ) : (
         <ErrorTitle>
-          <button onClick={() => history.goBack()} type="button">
+          <button onClick={goBack} type="button">
             {actionTitle}
           </button>
         </ErrorTitle>
@@ -41,7 +37,7 @@ ErrorMessage.propTypes = {
   title: PropTypes.string.isRequired,
   actionTitle: PropTypes.string,
   actionLink: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 ErrorMessage.defaultProps = {
