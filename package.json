@@ -31,8 +31,7 @@
     "start": "yarn start:tailwind && react-scripts start",
     "build": "cross-env NODE_ENV=production CI=false yarn build:tailwind && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "eslint-check": "eslint --print-config src/App.js | eslint-config-prettier-check"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
