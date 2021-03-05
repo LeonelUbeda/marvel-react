@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
-const ExtraCard = ({ title, className }) => (
-  <span className={`px-2 py-1 rounded-md my-1 ${className}`} key={nanoid()}>
+export const ExtraCard = ({ title, className }) => (
+  <span
+    className={`px-2 py-1 rounded-md my-1 ${className}`}
+    data-testid="extra-card"
+  >
     {title}
   </span>
 );
@@ -21,7 +24,11 @@ const ElementCard = ({ link, title, image, extras }) => (
         {extras.length > 0 ? (
           <div className="extras my-2 flex items-end w-full text-white text-xs absolute top-0 left-0 flex flex-col transform translate-x-3">
             {extras.map((extra) => (
-              <ExtraCard title={extra.title} className={extra.className} key={nanoid()} />
+              <ExtraCard
+                title={extra.title}
+                className={extra.className}
+                key={nanoid()}
+              />
             ))}
           </div>
         ) : null}
