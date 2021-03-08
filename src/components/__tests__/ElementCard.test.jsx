@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { renderWithMemoryRouter } from '../../utils/testUtils';
 import ElementCard from '../ElementCard';
 
