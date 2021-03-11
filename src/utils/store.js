@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal';
 // items: Object, itemsId: Array[String]
 export const getItemsFromStore = (items, itemsIds) => {
   const itemsList = [];
@@ -9,4 +10,7 @@ export const getItemsFromStore = (items, itemsIds) => {
   return itemsList;
 };
 
-export default { getItemsFromStore };
+export const getRequest = (histories, params) =>
+  histories.find((request) => isEqual(request.params, params));
+
+export default { getItemsFromStore, getRequest };
