@@ -4,12 +4,6 @@ import favoriteTypes from './favorite.types';
 function addFavorite(element) {
   return async (dispatch) => {
     try {
-      dispatch({
-        type: favoriteTypes.ADD_ERROR,
-        payload: {
-          message: 'An error occurred while adding the item to favorites',
-        },
-      });
       await localforage.setItem(`${element.type}-${element.id}`, element);
       dispatch({
         type: favoriteTypes.ADD_FAVORITE,
