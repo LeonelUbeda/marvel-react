@@ -3,15 +3,16 @@ import ReactPaginate from 'react-paginate';
 
 export default ({ pagesQuantity, selectedPage, handlePageClick }) => (
   <ReactPaginate
+    initialPage={selectedPage - 1}
     pageCount={pagesQuantity}
-    pageRangeDisplayed={2}
-    marginPagesDisplayed={1}
-    breakClassName="py-1 px-2 bg-gray-600 text-white rounded-md mx-1"
+    pageRangeDisplayed={1}
+    marginPagesDisplayed={2}
     containerClassName="flex py-2 px-4 justify-center"
-    previousClassName="py-1 px-2 bg-gray-700 text-white rounded-md mx-1"
-    nextClassName="py-1 px-2 bg-gray-700 text-white rounded-md mx-1"
-    pageClassName="py-1 px-2 bg-gray-600 text-white rounded-md mx-1"
-    initialPage={selectedPage}
     onPageChange={handlePageClick}
+    activeLinkClassName="font-bold"
+    pageLinkClassName="py-1 px-3 bg-green-700 text-white rounded-md mx-1"
+    breakLinkClassName="py-1 px-2 bg-green-800 text-white rounded-md mx-1"
+    nextLinkClassName="py-1 px-2 bg-green-600 text-white rounded-md mx-1"
+    previousLinkClassName="py-1 px-2 bg-green-600 text-white rounded-md mx-1"
   />
 );
