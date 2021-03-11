@@ -19,6 +19,12 @@
     "comma-dangle": "off",
     "implicit-arrow-linebreak": "off",
     "no-unused-vars": "warn",
-    "object-curly-newline": ["warn", { "multiline": true }]
+    "object-curly-newline": ["off"],
+    "no-restricted-syntax": "off",
+    "function-paren-newline": "off",
+    "react/jsx-closing-bracket-location": [
+      1,
+      { "selfClosing": "line-aligned", "nonEmpty": "after-props" }
+    ]
   }
 }
