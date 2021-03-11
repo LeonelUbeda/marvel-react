@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { getItemsFromStore } from '../utils/store';
+import { getPageFromQuery } from '../utils/params';
 import ElementCard from '../components/ElementCard';
 import Pagination from '../components/Pagination';
 import { setParams } from '../store/comics/comics.actions';
@@ -69,14 +70,6 @@ const ComicItem = ({ characters, format, thumbnail, id, title }) => {
     />
   );
 };
-
-function getPageFromQuery(value) {
-  const temp = parseInt(value, 10);
-  if (!Number.isNaN(temp) && temp > 0) {
-    return temp;
-  }
-  return 1;
-}
 
 export default () => {
   const query = useQuery();
