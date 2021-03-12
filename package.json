@@ -9,6 +9,7 @@
     "cross-env": "^7.0.2",
     "history": "^5.0.0",
     "localforage": "^1.9.0",
+    "lodash.isequal": "^4.5.0",
     "nanoid": "^3.1.18",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

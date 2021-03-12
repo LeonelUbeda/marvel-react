@@ -6,15 +6,14 @@ import PropTypes from 'prop-types';
 export const ExtraCard = ({ title, className }) => (
   <span
     className={`px-2 py-1 rounded-md my-1 ${className}`}
-    data-testid="extra-card"
-  >
+    data-testid="extra-card">
     {title}
   </span>
 );
 
 const ElementCard = ({ link, title, image, extras }) => (
   <Link to={link}>
-    <div className="w-full flex flex-col items-center w-full h-full relative">
+    <div className="w-full flex flex-col items-centerh-full relative">
       <div className="w-auto relative">
         <img
           src={image}
@@ -22,7 +21,7 @@ const ElementCard = ({ link, title, image, extras }) => (
           className="h-96 w-auto md:h-64 lg:h-96 object-cover rounded-md shadow-md"
         />
         {extras.length > 0 ? (
-          <div className="extras my-2 flex items-end w-full text-white text-xs absolute top-0 left-0 flex flex-col transform translate-x-3">
+          <div className="extras my-2 items-end w-full text-white text-xs absolute top-0 left-0 flex flex-col transform translate-x-3">
             {extras.map((extra) => (
               <ExtraCard
                 title={extra.title}

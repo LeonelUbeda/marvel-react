@@ -105,8 +105,7 @@ export default () => {
                     } else {
                       addToFavorite();
                     }
-                  }}
-                >
+                  }}>
                   {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                 </button>
               </h3>
@@ -128,7 +127,9 @@ export default () => {
                 <div className="my-2">
                   <h2 className="text-gray-600 font-semibold">Price</h2>
                   <div className="w-full flex flex-wrap">
-                    {element.prices.map(({ type, price }) => <Price type price />)}
+                    {element.prices.map(({ type, price }) => (
+                      <Price type={type} price={price} />
+                    ))}
                   </div>
                 </div>
               ) : null}

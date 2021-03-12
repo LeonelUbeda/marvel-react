@@ -25,7 +25,7 @@ export default () => (
     </SectionHeader>
     <div className="grid gap-y-4 grid-cols-1 px-2 py-4 md:grid-cols-2 md:gap-x-4 container mx-auto h-full">
       {sections.map(({ src, link, title }) => (
-        <SectionCard image={src} link={link} title={title} />
+        <SectionCard image={src} link={link} title={title} key={nanoid()} />
       ))}
     </div>
   </>
