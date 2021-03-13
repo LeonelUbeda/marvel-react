@@ -6,7 +6,7 @@ import { getItemsFromStore } from '../utils/store';
 import { getPageFromQuery } from '../utils/params';
 import ElementCard from '../components/ElementCard';
 import Pagination from '../components/Pagination';
-import { setParams } from '../store/characters/characters.actions';
+import { setListingParams } from '../store/characters/characters.actions';
 import LoadingHandler from '../components/LoadingHandler';
 import ErrorHandler from '../components/ErrorHandler';
 import DynamicFilter from '../components/DynamicFilter';
@@ -94,7 +94,7 @@ export default () => {
     setFilters(newFilterObject);
   }
   useEffect(() => {
-    dispatch(setParams({ page: selectedPage, limit: LIMIT, filters }));
+    dispatch(setListingParams({ page: selectedPage, limit: LIMIT, filters }));
   }, [filters, selectedPage]);
 
   useEffect(() => {

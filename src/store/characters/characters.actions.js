@@ -19,7 +19,7 @@ export function setRequest(request) {
   };
 }
 
-export function setParams({ page, limit, filters }) {
+export function setListingParams({ page, limit, filters }) {
   return async (dispatch, getState) => {
     const { requests } = getState().characters;
     try {
@@ -64,5 +64,5 @@ export function setParams({ page, limit, filters }) {
   };
 }
 export default {
-  setParams,
+  setListingParams,
 };
