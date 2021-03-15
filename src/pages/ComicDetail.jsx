@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import favoriteActions from '../store/favorite/favorite.actions';
-import { loadComicById } from '../store/comics/comics.actions';
-import { searchIfFavorite } from '../utils/favoriteStateUtils';
+
+/* Components */
 import ErrorInline from '../components/ErrorInline';
 import SectionHeader from '../layout/SectionHeader';
 import Price from '../components/Price';
-import ErrorHandler from '../components/ErrorHandler';
 import LoadingHandler from '../components/LoadingHandler';
 import ComicDate from '../components/comics/ComicDate';
 import GenericRelatedItems from '../components/GenericRelatedItems';
+
+/* Wrappers */
+import ErrorHandler from '../components/ErrorHandler';
+
+/* state */
+import favoriteActions from '../store/favorite/favorite.actions';
+import { loadComicById } from '../store/comics/comics.actions';
+
+/* Utils */
+import { searchIfFavorite } from '../utils/favoriteStateUtils';
 
 export default () => {
   const { id } = useParams();
