@@ -7,11 +7,11 @@ import { useParams } from 'react-router-dom';
 import ErrorInline from '../components/ErrorInline';
 import SectionHeader from '../layout/SectionHeader';
 import Price from '../components/Price';
-import LoadingHandler from '../components/LoadingHandler';
 import ComicDate from '../components/comics/ComicDate';
 import GenericRelatedItems from '../components/GenericRelatedItems';
 
 /* Wrappers */
+import LoadingHandler from '../components/LoadingHandler';
 import ErrorHandler from '../components/ErrorHandler';
 
 /* state */
@@ -30,7 +30,7 @@ export default () => {
   const { favorites, error: actionFavoriteError } = useSelector(
     (state) => state.favorite
   );
-  const { items: itemsFromStore, isLoading, error } = useSelector(
+  const { items: itemsFromStore, isLoading } = useSelector(
     (state) => state.comics
   );
   const [isFavorite, setIsFavorite] = useState(false);
@@ -67,7 +67,7 @@ export default () => {
     );
   }
   function removeFromFavorite() {
-    dispatch(favoriteActions.removeFavorite(parseInt(id, 10), 'COMIC'));
+    dispatch(favoriteActions.removeFavorite(id, 'COMIC'));
   }
 
   return (
@@ -83,7 +83,7 @@ export default () => {
             action={() => dispatch(favoriteActions.removeError())}
           />
         )}
-        <ErrorHandler error={error}>
+        <ErrorHandler>
           <LoadingHandler isLoading={isLoading}>
             <>
               {element && (

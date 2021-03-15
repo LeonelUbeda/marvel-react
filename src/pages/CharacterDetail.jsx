@@ -25,7 +25,7 @@ export default () => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    setIsFavorite(searchIfFavorite(favorites, parseInt(id, 10), 'CHARACTER'));
+    setIsFavorite(searchIfFavorite(favorites, id, 'CHARACTER'));
   }, [favorites]);
 
   function addToFavorite() {
