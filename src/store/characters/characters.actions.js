@@ -1,6 +1,7 @@
 import types from './characters.types';
 import { buildCharactersURL } from '../../utils/urlBuilders';
 import { getRequest } from '../../utils/store';
+import { setError } from '../errors/errors.actions';
 import {
   getItemsFromAPIResponse,
   getItemsIdsFromAPIResponse,
@@ -51,10 +52,7 @@ export function setListingParams({ page, limit, filters }) {
         dispatch(setCurrent(requestObj));
       }
     } catch (error) {
-      dispatch({
-        type: types.SET_ERROR,
-        payload: { message: 'Application Error' },
-      });
+      dispatch(setError('Application Error'));
     } finally {
       dispatch({
         type: types.SET_IS_LOADING,

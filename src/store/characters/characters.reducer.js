@@ -25,10 +25,6 @@ function reducer(state = initialState, { type, payload }) {
       return { ...state, requests: [...state.requests, payload] };
     case types.SET_IS_LOADING:
       return { ...state, isLoading: payload };
-    case types.SET_ERROR:
-      return { ...state, error: payload };
-    case types.REMOVE_ERROR:
-      return { ...state, error: null };
     default:
       return state;
   }
