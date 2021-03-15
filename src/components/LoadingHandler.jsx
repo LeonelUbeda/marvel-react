@@ -8,7 +8,11 @@ const LoadingHandler = ({ isLoading, children }) => (
 
 LoadingHandler.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+LoadingHandler.defaultProps = {
+  children: null,
 };
 
 export default LoadingHandler;
