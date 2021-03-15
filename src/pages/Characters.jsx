@@ -2,17 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { getItemsFromStore } from '../utils/store';
-import { getPageFromQuery } from '../utils/params';
+
+/* Components */
 import ElementCard from '../components/ElementCard';
 import Pagination from '../components/Pagination';
-import { setListingParams } from '../store/characters/characters.actions';
-import LoadingHandler from '../components/LoadingHandler';
-import ErrorHandler from '../components/ErrorHandler';
 import DynamicFilter from '../components/DynamicFilter';
 import SectionHeader from '../layout/SectionHeader';
 import SimpleArrow from '../components/SimpleArrow';
 import GenericMessage from '../components/GenericMessage';
+
+/* Wrappers */
+import LoadingHandler from '../components/LoadingHandler';
+import ErrorHandler from '../components/ErrorHandler';
+
+/* state */
+import { setListingParams } from '../store/characters/characters.actions';
+
+/* Utils */
+import { getPageFromQuery } from '../utils/params';
+import { getItemsFromStore } from '../utils/store';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -70,12 +78,9 @@ export default () => {
   const dispatch = useDispatch();
   const [isFilterHidden, setIsFilterHidden] = useState(true);
   const [items, setItems] = useState([]);
-  const {
-    items: itemsFromStore,
-    isLoading,
-    error,
-    currentRequest,
-  } = useSelector((state) => state.characters);
+  const { items: itemsFromStore, isLoading, currentRequest } = useSelector(
+    (state) => state.characters
+  );
 
   const [selectedPage, setSelectedPage] = useState(
     getPageFromQuery(query.get('page'))
@@ -122,7 +127,7 @@ export default () => {
       </div>
 
       <div className="container mx-auto py-5">
-        <ErrorHandler error={error}>
+        <ErrorHandler>
           <LoadingHandler isLoading={isLoading}>
             <>
               <div className="container mx-auto py-5">
