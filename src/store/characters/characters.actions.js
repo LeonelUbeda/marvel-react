@@ -1,7 +1,11 @@
 import types from './characters.types';
-import { buildCharactersURL } from '../../utils/urlBuilders';
+import {
+  buildCharactersURL,
+  buildCharacterDetail,
+} from '../../utils/urlBuilders';
 import { getRequest } from '../../utils/store';
 import { setError } from '../errors/errors.actions';
+
 import {
   getItemsFromAPIResponse,
   getItemsIdsFromAPIResponse,
@@ -10,6 +14,11 @@ import {
 export function setCurrent(current) {
   return { type: types.SET_CURRENT, payload: current };
 }
+
+function setLoadingTo(payload) {
+  return { type: types.SET_IS_LOADING, payload };
+}
+
 export function setRequest(request) {
   return (dispatch, getState) => {
     const { requests } = getState().comics;
@@ -61,6 +70,34 @@ export function setListingParams({ page, limit, filters }) {
     }
   };
 }
+
+export function loadCharacterById(id) {
+  return async (dispatch, getState) => {
+    const { items } = getState().characters;
+    if (!(id in items)) {
+      dispatch(setLoadingTo(true));
+      try {
+        let response = await fetch(buildCharacterDetail(id));
+        response = await response.json();
+        if (response.code === 404) {
+          dispatch(setError('Element not found'));
+        } else {
+          const itemsObj = getItemsFromAPIResponse(response);
+          dispatch({
+            type: types.SET_ITEMS,
+            payload: itemsObj,
+          });
+        }
+      } catch (error) {
+        dispatch(setError('Application Error'));
+      } finally {
+        dispatch(setLoadingTo(false));
+      }
+    }
+  };
+}
+
 export default {
   setListingParams,
+  loadCharacterById,
 };

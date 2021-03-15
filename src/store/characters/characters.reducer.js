@@ -9,7 +9,6 @@ const initialState = {
     params: {},
   },
   isLoading: false,
-  error: null,
 };
 
 function reducer(state = initialState, { type, payload }) {
