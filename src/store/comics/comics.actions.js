@@ -1,11 +1,8 @@
 import types from './comics.types';
 import { buildComicsURL, buildComicDetailURL } from '../../utils/urlBuilders';
-import { getRequest } from '../../utils/store';
+import { getRequest, apiResponseToHistory } from '../../utils/store';
 import { setError } from '../errors/errors.actions';
-import {
-  getItemsFromAPIResponse,
-  getItemsIdsFromAPIResponse,
-} from '../../utils/api';
+import { getItemsFromAPIResponse } from '../../utils/api';
 
 export function setCurrent(current) {
   return { type: types.SET_CURRENT, payload: current };
@@ -44,16 +41,16 @@ export function setListingParams({ page, limit, filters }) {
           payload: itemsObj,
         });
 
-        const itemsIds = getItemsIdsFromAPIResponse(response);
-        const requestObj = {
-          items: itemsIds,
-          params: { ...filters, limit, page },
-          total: response.data.total,
-        };
+        const requestObj = apiResponseToHistory(response, {
+          page,
+          limit,
+          filters,
+        });
         dispatch(setRequest(requestObj));
         dispatch(setCurrent(requestObj));
       }
     } catch (error) {
+      console.log(error);
       dispatch(setError('Application Error'));
     } finally {
       dispatch(setLoadingTo(false));
